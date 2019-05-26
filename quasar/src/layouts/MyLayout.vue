@@ -18,6 +18,12 @@
           Quasar App
           <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
         </q-toolbar-title>
+
+        <q-btn flat to="/cart">
+          <transition enter-active-class="animated tada" leave-active-class="hidden">
+            <q-chip icon="shopping_cart" :key="cart_count">{{ cart_count }}</q-chip>
+          </transition>
+        </q-btn>
       </q-toolbar>
     </q-layout-header>
 
@@ -72,10 +78,39 @@ export default {
   data() {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop,
+      cart_count: 0,
     };
   },
   methods: {
     openURL,
+  },
+  watch: {
+    cart_count(newValue, oldValue) {
+      if (newValue > oldValue) {
+        this.$q.notify({
+          message: 'Pedido atualizado?',
+          detail: 'Um novo item foi adicionado ao seu pedido, quer ir para o carrinho de compras?',
+          type: 'positive',
+          actions: [
+            {
+              label: 'Ver pedido',
+              handler: () => {
+                this.$router.push('/cart');
+              },
+            },
+          ],
+        });
+      }
+    },
+  },
+  mounted() {
+    // setTimeout(() => {
+    //   this.cart_count += 1;
+    // }, 1000);
+
+    // setTimeout(() => {
+    //   this.cart_count += 1;
+    // }, 5000);
   },
 };
 </script>
