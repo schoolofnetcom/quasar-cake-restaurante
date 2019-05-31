@@ -41,25 +41,25 @@
           <img src="~assets/logo.png" alt="">
         </q-item>
         <q-list-header>O que você quer fazer?</q-list-header>
-        <q-item to="/">
+        <q-item to="/home">
           <q-item-side icon="search" />
           <q-item-main label="Quero pedir"
             sublabel="Busque por restaurantes e faça seu pedido" />
         </q-item>
-        <q-item to="">
+        <q-item to="/restaurants">
           <q-item-side icon="fastfood" />
           <q-item-main label="Tenho um restaurante"
             sublabel="Cadastre seu restaurante e receba pedidos" />
         </q-item>
-        <q-item to="">
+        <q-item to="/orders">
           <q-item-side icon="shopping_cart" />
           <q-item-main label="Meus pedidos"
             sublabel="Acompanhe seus últimos pedidos" />
         </q-item>
-        <q-item to="">
+        <q-item to="/auth">
           <q-item-side icon="account_box" />
           <q-item-main label="Entrar"
-            sublabel="ACesse sua conta" />
+            sublabel="Acesse sua conta" />
         </q-item>
       </q-list>
     </q-layout-drawer>
@@ -119,7 +119,7 @@ export default {
 #sidebar .q-item.router-link-active {
   background: rgba(0, 0, 0, 0.1);
 }
-#sidebar .q-item.router-link-active:hover {
+#sidebar .q-item.q-link:hover {
   background: rgba(0, 0, 0, 0.2);
 }
 #sidebar .q-item img {
