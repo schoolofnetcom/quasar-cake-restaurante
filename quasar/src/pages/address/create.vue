@@ -5,92 +5,28 @@
     </h1>
 
     <form @submit.prevent="submit()">
-      <q-field>
-        <q-input
-          type="text"
-          maxlength="8"
-          v-model="cep"
-          float-label="Informe o CEP"
-          autofocus
-        />
-      </q-field>
+      <address-fields v-model="data"></address-fields>
 
-      <div v-show="showAddressFields">
-        <q-field>
-          <q-input
-            type="text"
-            v-model="data.address"
-            float-label="Informe o logradouro"
-          />
-        </q-field>
-
-        <q-field>
-          <q-input
-            type="text"
-            v-model="data.number"
-            float-label="Informe o número"
-          />
-        </q-field>
-
-        <q-field>
-          <q-input
-            type="text"
-            v-model="data.complement"
-            float-label="Informe o complemento"
-          />
-        </q-field>
-
-        <q-field>
-          <q-input
-            type="text"
-            v-model="data.neiborhood"
-            float-label="Informe a bairro"
-          />
-        </q-field>
-
-        <q-field>
-          <q-input
-            type="text"
-            v-model="data.city"
-            float-label="Informe o cidade"
-          />
-        </q-field>
-
-        <q-field>
-          <q-input
-            type="text"
-            v-model="data.state"
-            float-label="Informe o estado"
-          />
-        </q-field>
-
-        <q-btn type="submit" label="Salvar" color="primary" class="q-my-md"/>
-      </div>
+      <q-btn type="submit" label="Salvar" color="primary" class="q-my-md"/>
     </form>
   </q-page>
 </template>
 
 <script>
+import AddressFields from '../../components/address_fields';
+
 export default {
   data() {
     return {
-      cep: null,
       data: {},
-      showAddressFields: false,
     };
   },
-  watch: {
-    cep(newValue) {
-      if (newValue.length === 8) {
-        this.showAddressFields = true;
-      } else {
-        this.showAddressFields = false;
-      }
-    },
+  components: {
+    'address-fields': AddressFields,
   },
   methods: {
     submit() {
-      console.log('envia');
+      console.log(this.data);
     },
   },
 };

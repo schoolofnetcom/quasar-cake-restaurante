@@ -1,32 +1,44 @@
 <template>
   <q-page padding>
     <h1 class="q-display-2">
-      Nome do restaurante
+      Detalhes do restaurante
     </h1>
-    <p class="q-mb-lg">
-      <span class="text-amber"><q-icon name="star"/> 3.5</span> |
-      <span class="text-grey">Entrega em 30-40 min - valor da entrega: R$ 5,00</span>
-    </p>
-    <div class="row gutter-lg">
-      <div class="col-xs-12 col-md-6" v-for="i in 5" :key="i">
-        <q-card>
-          <q-card-media>
-            <img src="~assets/food.jpg">
-          </q-card-media>
-            <q-card-title>
-              Nome do prato
-              <span slot="subtitle">R$ 15,00</span>
-            </q-card-title>
-          <q-card-separator/>
-          <q-card-main>
-            Aqui teremos uma descrição do prato, com ingrediantes (por exemplo)
-          </q-card-main>
-          <q-card-actions>
-            <q-btn flat color="primary" label="PEDIR" @click="order()"/>
-          </q-card-actions>
-        </q-card>
-      </div>
-    </div>
+
+    <q-card class="q-mb-md">
+      <q-card-main>
+        <p>Título: Meu restaurante</p>
+        <p>Tempo de entrega: 50 minutos</p>
+        <p>Valor de entrega: R$ 10,00</p>
+
+        <hr>
+
+        <p>
+          R. Fulano de tal, 155 - Centro<br>
+          Caraguatatuba- SP - CEP: 11676085
+        </p>
+      </q-card-main>
+    </q-card>
+
+    <q-table
+      title="Pratos"
+      :data="tableData"
+      :columns="columns"
+    >
+      <q-tr slot="body" slot-scope="props">
+        <q-td key="id">
+          {{ props.row.id }}
+        </q-td>
+        <q-td key="title" class="text-left">
+          {{ props.row.title }}
+        </q-td>
+        <q-td key="actions" class="text-right">
+          <q-btn color="primary" size="sm"
+            :to="'/restaurant/plate/' + props.row.id + '/edit'">editar</q-btn>
+        </q-td>
+      </q-tr>
+    </q-table>
+
+    <q-btn color="primary" to="/restaurant/plate/create" class="q-my-md">Novo prato</q-btn>
   </q-page>
 </template>
 
@@ -34,26 +46,32 @@
 export default {
   data() {
     return {
-      opt: [],
+      tableData: [
+        {
+          id: 1,
+          title: 'Nome do prato',
+        },
+        {
+          id: 2,
+          title: 'Outro prato',
+        },
+      ],
+      columns: [
+        {
+          field: 'id',
+          label: '',
+        },
+        {
+          field: 'title',
+          label: 'Título',
+        },
+      ],
     };
   },
-  methods: {
-    order() {
-      this.$q.dialog({
-        title: 'Confirmar pedido',
-        options: {
-          type: 'checkbox',
-          model: this.opt,
-          items: [
-            { label: 'Opção 1', value: 1 },
-            { label: 'Opção 2', value: 2 },
-            { label: 'Opção 3', value: 3 },
-          ],
-        },
-      }).then((data) => {
-        this.opt = data;
-      });
-    },
+  mounted() {
+    if (this.tableData.length === 0) {
+      this.$router.push('/new-restaurant');
+    }
   },
 };
 </script>

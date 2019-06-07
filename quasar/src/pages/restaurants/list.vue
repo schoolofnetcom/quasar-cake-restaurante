@@ -18,7 +18,7 @@
         </q-td>
         <q-td key="actions" class="text-right">
           <q-btn color="secondary" size="sm" class="q-mr-sm"
-            :to="'/restaurant/' + props.row.id">+ detalhes</q-btn>
+            :to="'/restaurant/' + props.row.id + '/detail'">+ detalhes</q-btn>
           <q-btn color="primary" size="sm"
             :to="'/restaurant/' + props.row.id + '/edit'">editar</q-btn>
         </q-td>
